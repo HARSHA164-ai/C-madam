@@ -184,26 +184,46 @@
         If music is not playing, tap anywhere on the screen or refresh (browser permission).
       </div>
     </div>
+    <audio id="bg-music" autoplay loop playsinline>
 
-    <a class="btn" href="mainwisher.html">Next ➜</a>
+
+      <a class="btn" href="mainwisher.html">Next ➜</a>
   </div>
 
   <script>
-    // Audio Volume
     const audio = document.getElementById('bg-music');
     const slider = document.getElementById('volumeSlider');
 
     audio.volume = parseFloat(slider.value);
 
-    slider.addEventListener('input', function () {
-      audio.volume = parseFloat(this.value);
+    slider.addEventListener('input', () => {
+      audio.volume = parseFloat(slider.value);
     });
 
-    document.addEventListener('click', function () {
-      if (audio.paused) {
-        audio.play().catch(() => { });
-      }
-    }, { once: true });
+    // 🔥 Try to auto play when page loads
+    window.addEventListener('load', () => {
+      const playAttempt = setInterval(() => {
+        audio.play().then(() => {
+          clearInterval(playAttempt);
+        }).catch(() => {
+          // waiting for user interaction
+        });
+      }, 500);
+    });
+
+    // 🔥 If browser blocks it, play on first touch/click
+    document.addEventListener('touchstart', forcePlay, { once: true });
+    document.addEventListener('click', forcePlay, { once: true });
+
+    function forcePlay() {
+      audio.play().catch(() => { });
+    }
+  </script>
+
+
+  <script>
+    // Audio Volume
+
 
     // Brush Reveal Effect
     const img = document.getElementById('baseImage');
