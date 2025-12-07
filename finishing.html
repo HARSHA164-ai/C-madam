@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Memories & Projects - Keerthi Madam Birthday</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffe0f0, #f5f7ff);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+    }
+
+    .card-wrap {
+      background: #ffffffdd;
+      border-radius: 18px;
+      padding: 18px 16px 20px;
+      box-shadow: 0 12px 30px #ff6b8144;
+      backdrop-filter: blur(6px);
+      animation: floatUp 1s ease-out;
+    }
+
+    @keyframes floatUp {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .nav-link:hover { text-decoration: underline; }
+
+    .title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #6c5ce7;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card {
+      background: #ffffffcc;
+      border-radius: 14px;
+      padding: 10px 12px;
+      box-shadow: 0 4px 12px #00000011;
+      font-size: 0.88rem;
+    }
+
+    .card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+      color: #6c5ce7;
+    }
+
+    .card span.year {
+      font-size: 0.75rem;
+      color: #888;
+    }
+
+    .card p {
+      font-size: 0.86rem;
+      margin-top: 4px;
+      line-height: 1.6;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #ff6b81, #ff9a9e);
+      padding: 5px 10px;
+      border-radius: 999px;
+      box-shadow: 0 3px 8px #ff6b8144;
+    }
+
+    .final-text {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    .btn-row {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: 9px 10px;
+      border-radius: 30px;
+      border: none;
+      text-decoration: none;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6b81, #ff9a9e);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: #333;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card-wrap">
+      <div class="top-bar">
+        <a href="mainwisher.html" class="nav-link">⬅ Back</a>
+        <span>Page 3 / 3</span>
+      </div>
+
+      <h2 class="title">Our Journey & Memories 📚</h2>
+
+      <div class="timeline">
+        <div class="card">
+          <h3>First Year – C Project 💻</h3>
+          <span class="year">My starting point</span>
+          <p>
+            First year lo C language project chesinappudu, naku basics kuda baga
+            teliyavu. But you explained everything slowly, lab lo help chesaru,
+            and finally nenu na first C project complete chesanu.  
+            <b>That project is my first step in coding — with your support.</b>
+          </p>
+          <!-- Optional project link -->
+          <a class="project-link" href="http://hilarious-mermaid-13d7de.netlify.app/" target="_blank">
+            🔗 View 1st Year Project
+          </a>
+        </div>
+
+        <div class="card">
+          <h3>Second Year – Small Wisher Project 🎈</h3>
+          <span class="year">For you, madam</span>
+          <p>
+            Second year lo oka chinna wisher project chesanu, simple website
+            style lo. A time lo kuda, na meeda unna respect ni lines lo
+            express cheyali anipinchindi.  
+            It was small, but it came from my heart, madam. 💛
+          </p>
+          <a class="project-link" href="https://warm-tarsier-03c62b.netlify.app" target="_blank">
+            🔗 View 2nd Year Project
+          </a>
+        </div>
+
+        <div class="card">
+          <h3>Third Year – This Birthday Website 🎂</h3>
+          <span class="year">Present moment</span>
+          <p>
+            Ikkada miru chustunna idi — <b>this birthday website</b> — is my latest
+            small gift for you.  
+            First year nundi ippati varaku na journey lo, me role chala
+            important. So I wanted to keep all those memories in one
+            special place: <b>this website only for you.</b>
+          </p>
+          <!-- Project link for this site (GitHub / Netlify) -->
+          <a class="project-link" href="https://your-3rd-year-project-link.com" target="_blank">
+            🔗 View This Website Project
+          </a>
+        </div>
+      </div>
+
+      <p class="final-text">
+        Madam, na life lo “Teacher” ante immediate ga gurthochche okka
+        name & face — <b>Keerthi madam</b>.  
+        Thank you for believing in me when I was just starting, for
+        correcting me when I made mistakes, and for supporting me
+        like a real mentor.  
+        <br><br>
+        <b>Happy Birthday Keerthi madam.  
+        This is from your student, with full respect and gratitude. 💛</b>
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn-secondary" href="mainwisher.html">⬅ Back</a>
+        <a class="btn btn-primary" href="index.html">🏠 First Page</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

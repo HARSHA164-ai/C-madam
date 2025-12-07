@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Keerthi Madam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffe0f0, #f5f7ff);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 350px;
+      padding: 20px 18px 24px;
+      text-align: center;
+      background: linear-gradient(145deg, #ffffffdd, #ffe6f4cc);
+      border-radius: 18px;
+      box-shadow: 0 15px 35px #ff6b8144;
+      backdrop-filter: blur(6px);
+      animation: floatUp 1.2s ease-out;
+    }
+
+    @keyframes floatUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .sub-text-main {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .sub-text-small {
+      font-size: 12px;
+      opacity: 0.85;
+      margin-bottom: 10px;
+    }
+
+    .quote {
+      font-size: 11px;
+      color: #555;
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+
+    .image-wrapper {
+      margin: 14px auto;
+      position: relative;
+      display: inline-block;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+      border: 2px dashed #fff;
+    }
+
+    #baseImage {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    #maskCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .caption {
+      font-size: 12px;
+      margin-top: 4px;
+      opacity: 0.9;
+    }
+
+    .audio-controls {
+      margin: 15px 0;
+      font-size: 13px;
+    }
+
+    input[type="range"] {
+      width: 80%;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 9px 20px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #ff6b81, #ff9a9e);
+      color: white;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .note {
+      font-size: 11px;
+      opacity: 0.75;
+      margin-top: 8px;
+    }
+
+    .from-tag {
+      margin-top: 6px;
+      font-size: 11px;
+      opacity: 0.8;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Happy Birthday, Keerthi Madam 🎉</h1>
+
+    <p class="sub-text-main">
+      Dear Keerthi madam,<br>
+      Wishing you a very <b>Happy Birthday</b> 🎂.
+    </p>
+    <p class="sub-text-small">
+      Thank you for being my first year guide, support, and inspiration.
+    </p>
+    <p class="quote">
+      “One teacher can change a student's whole life — and you did that for me.”
+    </p>
+
+    <!-- Madam image + brush reveal -->
+    <div class="image-wrapper">
+      <!-- Your madam photo -->
+      <img id="baseImage" src="madam-photo.png" alt="Keerthi Madam">
+      <canvas id="maskCanvas"></canvas>
+    </div>
+
+    <p class="caption">
+      Slowly revealing the most special person on this page… 💖
+    </p>
+    <p class="from-tag">
+      – With love from your student 💛
+    </p>
+
+    <!-- Background Music -->
+    <audio id="bg-music" autoplay loop>
+      <source src="audio.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <div class="audio-controls">
+      <div>🎵 Background birthday song</div>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.3">
+      <div class="note">
+        If music is not playing, tap anywhere on the screen or refresh (browser permission).
+      </div>
+    </div>
+
+    <a class="btn" href="mainwisher.html">Next ➜</a>
+  </div>
+
+  <script>
+    // Audio Volume
+    const audio = document.getElementById('bg-music');
+    const slider = document.getElementById('volumeSlider');
+
+    audio.volume = parseFloat(slider.value);
+
+    slider.addEventListener('input', function () {
+      audio.volume = parseFloat(this.value);
+    });
+
+    document.addEventListener('click', function () {
+      if (audio.paused) {
+        audio.play().catch(() => { });
+      }
+    }, { once: true });
+
+    // Brush Reveal Effect
+    const img = document.getElementById('baseImage');
+    const canvas = document.getElementById('maskCanvas');
+    const wrapper = document.querySelector('.image-wrapper');
+
+    function setupCanvasAndReveal() {
+      const ctx = canvas.getContext('2d');
+
+      const maxWidth = 300;
+      let scale = 1;
+
+      if (img.naturalWidth > maxWidth) {
+        scale = maxWidth / img.naturalWidth;
+      }
+
+      const w = img.naturalWidth * scale;
+      const h = img.naturalHeight * scale;
+
+      img.style.width = w + 'px';
+      img.style.height = h + 'px';
+      wrapper.style.width = w + 'px';
+      wrapper.style.height = h + 'px';
+
+      canvas.width = w;
+      canvas.height = h;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+
+      ctx.fillStyle = '#f9d3ff';
+      ctx.fillRect(0, 0, w, h);
+
+      const brushRadius = 60;
+      const totalDuration = 15000;
+      const points = [];
+
+      const cols = Math.ceil(w / brushRadius);
+      const rows = Math.ceil(h / brushRadius);
+
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          points.push({
+            x: (x + Math.random()) * brushRadius,
+            y: (y + Math.random()) * brushRadius
+          });
+        }
+      }
+
+      for (let i = points.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [points[i], points[j]] = [points[j], points[i]];
+      }
+
+      let index = 0;
+      const interval = Math.max(25, totalDuration / points.length);
+
+      ctx.globalCompositeOperation = 'destination-out';
+
+      const timer = setInterval(() => {
+        if (index >= points.length) {
+          clearInterval(timer);
+          return;
+        }
+        const p = points[index];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, brushRadius, 0, Math.PI * 2);
+        ctx.fill();
+        index++;
+      }, interval);
+    }
+
+    if (img.complete) {
+      setupCanvasAndReveal();
+    } else {
+      img.onload = setupCanvasAndReveal;
+    }
+  </script>
+</body>
+
+</html>
