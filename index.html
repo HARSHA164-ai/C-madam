@@ -76,6 +76,7 @@
       overflow: hidden;
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
       border: 2px dashed #fff;
+      background: #f9d3ff; /* mask color, reveal start ayye mundu flash avoid */
     }
 
     #baseImage {
@@ -159,7 +160,6 @@
 
     <!-- Madam image + brush reveal -->
     <div class="image-wrapper">
-      <!-- Your madam photo -->
       <img id="baseImage" src="madam-photo.png" alt="Keerthi Madam">
       <canvas id="maskCanvas"></canvas>
     </div>
@@ -172,7 +172,7 @@
     </p>
 
     <!-- Background Music -->
-    <audio id="bg-music" autoplay loop>
+    <audio id="bg-music" autoplay loop playsinline>
       <source src="audio.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
@@ -181,48 +181,45 @@
       <div>🎵 Background birthday song</div>
       <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.3">
       <div class="note">
-        If music is not playing, tap anywhere on the screen or refresh (browser permission).
+        If music is not playing, tap anywhere on the screen (browser permission).
       </div>
     </div>
-      <a class="btn" href="mainwisher.html">Next ➜</a>
+
+    <a class="btn" href="mainwisher.html">Next ➜</a>
   </div>
 
   <script>
+    // ===== AUDIO SETUP (desktop + mobile best effort) =====
     const audio = document.getElementById('bg-music');
     const slider = document.getElementById('volumeSlider');
 
+    // default volume
     audio.volume = parseFloat(slider.value);
 
     slider.addEventListener('input', () => {
       audio.volume = parseFloat(slider.value);
     });
 
-    // 🔥 Try to auto play when page loads
+    // Try autoplay repeatedly after load (some browsers allow)
     window.addEventListener('load', () => {
       const playAttempt = setInterval(() => {
         audio.play().then(() => {
-          clearInterval(playAttempt);
+          clearInterval(playAttempt); // success: stop trying
         }).catch(() => {
-          // waiting for user interaction
+          // still blocked, will try again or wait for user tap
         });
-      }, 500);
+      }, 800);
     });
 
-    // 🔥 If browser blocks it, play on first touch/click
-    document.addEventListener('touchstart', forcePlay, { once: true });
-    document.addEventListener('click', forcePlay, { once: true });
-
+    // If autoplay blocked, first interaction will start music
     function forcePlay() {
       audio.play().catch(() => { });
     }
-  </script>
 
+    document.addEventListener('click', forcePlay, { once: true });
+    document.addEventListener('touchstart', forcePlay, { once: true });
 
-  <script>
-    // Audio Volume
-
-
-    // Brush Reveal Effect
+    // ===== BRUSH REVEAL EFFECT =====
     const img = document.getElementById('baseImage');
     const canvas = document.getElementById('maskCanvas');
     const wrapper = document.querySelector('.image-wrapper');
@@ -230,7 +227,7 @@
     function setupCanvasAndReveal() {
       const ctx = canvas.getContext('2d');
 
-      const maxWidth = 300;
+      const maxWidth = 300; // mobile friendly width
       let scale = 1;
 
       if (img.naturalWidth > maxWidth) {
@@ -250,11 +247,12 @@
       canvas.style.width = w + 'px';
       canvas.style.height = h + 'px';
 
+      // full cover color (same as wrapper bg)
       ctx.fillStyle = '#f9d3ff';
       ctx.fillRect(0, 0, w, h);
 
       const brushRadius = 60;
-      const totalDuration = 15000;
+      const totalDuration = 15000; // 15 sec reveal
       const points = [];
 
       const cols = Math.ceil(w / brushRadius);
@@ -269,6 +267,7 @@
         }
       }
 
+      // random order
       for (let i = points.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [points[i], points[j]] = [points[j], points[i]];
@@ -292,7 +291,7 @@
       }, interval);
     }
 
-    if (img.complete) {
+    if (img.complete && img.naturalWidth > 0) {
       setupCanvasAndReveal();
     } else {
       img.onload = setupCanvasAndReveal;
